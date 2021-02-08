@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Test.Models.AssetsNeeded>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetsNeededID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estimated_Costs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actual_Costs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount_Needed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Performances)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipments)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetsNeededID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estimated_Costs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Actual_Costs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount_Needed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Performances.Performance_Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipments.Equipment_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
