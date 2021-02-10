@@ -1,0 +1,9 @@
+C:\Users\KNayl\source\repos\Events+LTD\Events+LTD\obj\Debug\net5.0\Events+LTD.csprojAssemblyReference.cache
+C:\Users\KNayl\source\repos\Events+LTD\Events+LTD\obj\Debug\net5.0\Events+LTD.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\KNayl\source\repos\Events+LTD\Events+LTD\obj\Debug\net5.0\Events+LTD.AssemblyInfoInputs.cache
+C:\Users\KNayl\source\repos\Events+LTD\Events+LTD\obj\Debug\net5.0\Events+LTD.AssemblyInfo.cs
+C:\Users\KNayl\source\repos\Events+LTD\Events+LTD\obj\Debug\net5.0\Events+LTD.csproj.CoreCompileInputs.cache
+C:\Users\KNayl\source\repos\Events+LTD\Events+LTD\obj\Debug\net5.0\Events+LTD.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\KNayl\source\repos\Events+LTD\Events+LTD\obj\Debug\net5.0\Events+LTD.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\KNayl\source\repos\Events+LTD\Events+LTD\obj\Debug\net5.0\Events+LTD.RazorAssemblyInfo.cache
+C:\Users\KNayl\source\repos\Events+LTD\Events+LTD\obj\Debug\net5.0\Events+LTD.RazorAssemblyInfo.cs

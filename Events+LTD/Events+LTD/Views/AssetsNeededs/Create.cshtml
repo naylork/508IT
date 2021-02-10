@@ -1,0 +1,51 @@
+﻿@model EventPlusLTD.Models.AssetsNeeded
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>AssetsNeeded</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PerformanceID" class="control-label"></label>
+                <select asp-for="PerformanceID" class ="form-control" asp-items="ViewBag.PerformanceID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EquipmentID" class="control-label"></label>
+                <select asp-for="EquipmentID" class ="form-control" asp-items="ViewBag.EquipmentID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstimatedCosts" class="control-label"></label>
+                <input asp-for="EstimatedCosts" class="form-control" />
+                <span asp-validation-for="EstimatedCosts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActualCosts" class="control-label"></label>
+                <input asp-for="ActualCosts" class="form-control" />
+                <span asp-validation-for="ActualCosts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AmountNeeded" class="control-label"></label>
+                <input asp-for="AmountNeeded" class="form-control" />
+                <span asp-validation-for="AmountNeeded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
