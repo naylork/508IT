@@ -1,0 +1,59 @@
+﻿@model IEnumerable<EPLTD.Models.AssetsNeeded>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EstimatedCosts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActualCosts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmountNeeded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Performance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstimatedCosts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualCosts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountNeeded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Performance.PerformanceID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment.Equipment_Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AssetsNeededID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AssetsNeededID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AssetsNeededID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

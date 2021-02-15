@@ -1,0 +1,53 @@
+﻿@model IEnumerable<EPLTD.Models.OrganizersOccupied>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeSlotStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeSlotEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Performance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Organizer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeSlotStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeSlotEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Performance.PerformanceID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Organizer.OrganizerID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrganizersOccupiedID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OrganizersOccupiedID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrganizersOccupiedID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

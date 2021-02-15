@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dSyAJQIc39kopoVBGYfgdSJzdrf1llVZAUrJvudhOl1cr+2bxb5Ay8kEHFi8ZpZq96OHkfRadY4vd29bIobCkg==",
+  "dgSpecHash": "yB9o94E4qSXztYZ+0NErY3znRd7YiICHKw6cvxGrZTucTnD6G2/56ywjnsoh1PxHweajn5QhCYRCA0gkCcC3kA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\KNayl\\source\\repos\\Events+LTD\\Events+LTD\\EventPlusLTD.csproj",
+  "projectFilePath": "C:\\Users\\KNayl\\Documents\\GitHub\\508IT\\508IT\\Events+LTD\\Events+LTD\\EventPlusLTD.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\KNayl\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\KNayl\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.0\\microsoft.aspnetcore.cryptography.internal.5.0.0.nupkg.sha512",
