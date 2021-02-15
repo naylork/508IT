@@ -243,3 +243,9 @@ C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\Performers\
 C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\Performers\Details.cshtml.g.cs
 C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\Performers\Edit.cshtml.g.cs
 C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\Performers\Index.cshtml.g.cs
+C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\Home\UpcomingEvents.cshtml.g.cs
+C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\Role\Create.cshtml.g.cs
+C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\Role\Index.cshtml.g.cs
+C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\UserRoleManagement\AddUserToRole.cshtml.g.cs
+C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\UserRoleManagement\Details.cshtml.g.cs
+C:\Users\KNayl\source\repos\EPLTD\EPLTD\obj\Debug\net5.0\Razor\Views\UserRoleManagement\Index.cshtml.g.cs

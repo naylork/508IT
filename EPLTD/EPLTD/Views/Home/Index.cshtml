@@ -1,8 +1,98 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EventsPlusLTD</title>
+    <link rel="stylesheet" type="text/css" href=".../wwwroot/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href=".../wwwroot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+</head>
+
+<body>
+
+
+    <br> <br>
+
+    <div class="text-center">
+        <!--A simple div to center the contents-->
+        <h1>EventsPlusLTD</h1> <!--Creates a title using H1 properties called EventsPlusLTD-->
+        <h2><b>Your Event Managers</b></h2> <!--Creates a title using H2 properties-->
+        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8ZmVzdGl2YWx8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80" width=300 style=padding-top:20px class="rounded" alt="EventsPlusLTD Logo" /> <!--Adds an image using the img src URL and gives it properties like width 300 pixels and rounded frame, as well as including alt text for those that cannot see the images-->
+        <br> <br> <br>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col" style="text-align:center">
+                <!--Creates a column that is center aligned-->
+                <h2>Apply to Join The Team !</h2> <!--Creates a title using H2 properties-->
+                <p>Want to be a part of the team that bring you awesome events <br />  Sign up here, and maybe you can be a part of the family !! </p>  <!--Creates a simple paragraph with text-->
+                <br />
+                <img src="https://eventacademy.com/wp-content/uploads/2018/08/Festival-Management.jpg" width=400 style=padding-top:20px class="rounded" alt="Apply To be a part of the team" /> <!--Adds an image using the img src URL and gives it properties like width 400 pixels and rounded frame, as well as including alt text for those that cannot see the images-->
+                <br /><br /><br />
+                <button class="btn-dark"><h4>Apply Now</h4></button> <!--Creates a button with the class "btn-dark" and text saying Apply Now-->
+                <br /><br /><br /><br />
+            </div>
+            <div class="col" style="text-align:center">
+                <!--Creates a column that is center aligned-->
+                <h2>Upcoming Events</h2> <!--Creates a title using H2 properties-->
+                <p>Upcoming events we think you'd like, <br /> check them out !! </p>  <!--Creates a simple paragraph with text with a link to another page-->
+                <ul> Reading and Leeds Festival</ul>   <!--Creates a list of items-->
+                <ul> Download Festival</ul>
+                <ul> Wireless Festival</ul>
+                <ul> Godiva Festival</ul>
+                <ul> Radio 1's Big Weekend</ul>
+                <ul> Riot Rave</ul>
+                <ul> Bass and Face Fest</ul>
+                <br />
+                <button type="button" class="btn btn-dark btn-group" onclick="location.href='../Home/UpcomingEvents'"><h4>Upcoming Events</h4></button>
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="col" style="text-align:center">
+                <!--Creates a column that is center aligned-->
+                <br /><br />
+                <h2>Inquire</h2>  <!--Creates a title using H2 properties-->
+                <p>Want to perform at a certain event but dont know who to contact ? Send an enquiry to our team and find out if there is space for you, all emails are answered within 24 hours and phone lines are operational throughout the week </p> <!--Creates a simple paragraph with text with a link to another page-->
+
+                <br />
+                <button class="btn-dark"><h4>Send a request</h4></button>  <!--Creates a button with the class "btn-dark" and text saying Send a Request with a link to another page-->
+            </div>
+
+            <div class="col" style="text-align:center">
+                <!--Creates a column that is center aligned-->
+                <br /><br />
+                <h2>Wireless Festival</h2>  <!--Creates a title using H2 properties-->
+                <img src="https://www.carnifest.com/wp-content/uploads/2018/10/Wireless_Festival_Photo-wirelessfestival.co_.uk_.jpg" width=400 style=padding-top:20px class="rounded" alt="EventsPlusLTD Logo" /> <!--Adds an image using the img src URL and gives it properties like width 400 pixels and rounded frame, as well as including alt text for those that cannot see the images-->
+                <br /><br /><br />
+                <p>
+                    Wireless Festival is now London's number one urban music festival, bringing the finest artists in hip-hop, grime and more to the city's Finsbury Park each July.
+                    Having hosted a long list of icons such as Skepta, Cardi B, Travis Scott and Stormzy, Wireless is now a haven for urban music fans, who flock from across the UK to party in their company each summer.  <!--Creates a simple paragraph with text-->
+                </p>
+                <br />
+                <button class="btn-dark" onclick="location.href='../Events/Index'"><h4>Find out more</h4></button>   <!--Creates a button with the class "btn-dark" and text saying Find Out More with a link to another page-->
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src=".../wwwroot/js/translategoogle.js"></script>
+    <script type="text/javascript" src=".../wwwroot/js/translategoogle.js"></script>
+    <script type="text/javascript" src=".../wwwroot/js/darkmode.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

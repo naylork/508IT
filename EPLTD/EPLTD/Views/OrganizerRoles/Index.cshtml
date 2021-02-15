@@ -1,14 +1,21 @@
 ﻿@model IEnumerable<EPLTD.Models.OrganizerRole>
 
 @{
-    ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<br />
+<br />
+<br />
+<div style="text-align:center">
+    <h1>Organizer Roles</h1>
+    <br />
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -19,17 +26,25 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrganizerRoleID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrganizerRoleID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrganizerRoleID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OrganizerRoleID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.OrganizerRoleID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OrganizerRoleID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<br />
+<br />
+<br />
+<br />
+<div style="text-align:center">
+    <button type="button" class="btn btn-primary btn-group" onclick="location.href='../Organizers/Index'"><h4>Organizers</h4></button>
+</div>

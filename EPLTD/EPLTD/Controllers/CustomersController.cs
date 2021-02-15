@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EPLTD.Data;
 using EPLTD.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EPLTD.Controllers
 {
+    [Authorize(Roles = "admin")]
+
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,10 +23,56 @@ namespace EPLTD.Controllers
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index_Default()
         {
             var applicationDbContext = _context.Customer.Include(c => c.Event);
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        {
+            ViewData["FirstNameSort"] = String.IsNullOrEmpty(sortOrder) ? "FirstName_Desc" : "";
+            ViewData["LastNameSort"] = sortOrder == "LastName_Asc" ? "LastName_Desc" : "LastName_Asc";
+            var Customers = from f in _context.Customer.Include(f => f.Event)
+                            select f;
+
+            /** Sorting Script **/
+            switch (sortOrder)
+            {
+                case "FirstName_Desc":
+                    Customers = Customers.OrderByDescending(f => f.FirstName);
+                    break;
+                case "LastName_Asc":
+                    Customers = Customers.OrderBy(f => f.LastName);
+                    break;
+                case "LastName_Desc":
+                    Customers = Customers.OrderByDescending(f => f.LastName);
+                    break;
+
+                default:
+                    Customers = Customers.OrderBy(f => f.FirstName);
+                    break;
+            }
+
+            /*** Search Script ****/
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Customers = Customers.Where(f => f.FirstName.Contains(searchString)
+                         || f.LastName.Contains(searchString));
+            }
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<Customer>.CreateAsync(Customers.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Customers/Details/5

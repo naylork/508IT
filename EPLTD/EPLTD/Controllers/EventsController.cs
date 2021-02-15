@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EPLTD.Data;
 using EPLTD.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EPLTD.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class EventsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,9 +22,58 @@ namespace EPLTD.Controllers
         }
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index_default()
         {
             return View(await _context.Event.ToListAsync());
+        }
+
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        {
+            ViewData["EventNameSort"] = String.IsNullOrEmpty(sortOrder) ? "EventName_Desc" : "";
+            ViewData["EventTypeSort"] = sortOrder == "EventType_Asc" ? "EventType_Desc" : "EventType_Asc";
+            var Events = from f in _context.Event.Include(f => f.Customer)
+                         select f;
+
+            /** Sorting Script **/
+            switch (sortOrder)
+            {
+                case "EventName_Desc":
+                    Events = Events.OrderByDescending(f => f.EventName);
+                    break;
+                case "EventType_Asc":
+                    Events = Events.OrderBy(f => f.EventType);
+                    break;
+                case "EventType_Desc":
+                    Events = Events.OrderByDescending(f => f.EventType);
+                    break;
+
+                default:
+                    Events = Events.OrderBy(f => f.EventName);
+                    break;
+
+            }
+
+            /*** Search Script ****/
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Events = Events.Where(f => f.EventName.Contains(searchString)
+                    || f.EventType.Contains(searchString));
+
+            }
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<Event>.CreateAsync(Events.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Events/Details/5

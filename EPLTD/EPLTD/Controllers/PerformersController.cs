@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EPLTD.Data;
 using EPLTD.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EPLTD.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PerformersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,9 +22,57 @@ namespace EPLTD.Controllers
         }
 
         // GET: Performers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index_Default()
         {
             return View(await _context.Performers.ToListAsync());
+        }
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        {
+            ViewData["FullNameSort"] = String.IsNullOrEmpty(sortOrder) ? "FullName_Desc" : "";
+            ViewData["ContactEmailSort"] = sortOrder == "ContactEmail_Asc" ? "ContactEmail_Desc" : "ContactEmail_Asc";
+            var Performers = from f in _context.Performers.Include(f => f.ActType)
+                             select f;
+
+            /** Sorting Script **/
+            switch (sortOrder)
+            {
+                case "FullName_Desc":
+                    Performers = Performers.OrderByDescending(f => f.FullName);
+                    break;
+                case "ContactEmail_Asc":
+                    Performers = Performers.OrderBy(f => f.ContactEmail);
+                    break;
+                case "ContactEmail_Desc":
+                    Performers = Performers.OrderByDescending(f => f.ContactEmail);
+                    break;
+
+                default:
+                    Performers = Performers.OrderBy(f => f.FullName);
+                    break;
+
+            }
+
+            /*** Search Script ****/
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Performers = Performers.Where(f => f.FullName.Contains(searchString)
+                    || f.ContactEmail.Contains(searchString));
+
+            }
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<Performers>.CreateAsync(Performers.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Performers/Details/5

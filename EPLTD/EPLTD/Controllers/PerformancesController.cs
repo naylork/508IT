@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EPLTD.Data;
 using EPLTD.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EPLTD.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PerformancesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,11 +22,52 @@ namespace EPLTD.Controllers
         }
 
         // GET: Performances
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index_Default()
         {
             var applicationDbContext = _context.Performance.Include(p => p.Event);
             return View(await applicationDbContext.ToListAsync());
         }
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        {
+            ViewData["PerformanceNameSort"] = String.IsNullOrEmpty(sortOrder) ? "PerformanceName_Desc" : "";
+            var Performances = from f in _context.Performance.Include(f => f.Event)
+                               select f;
+
+            /** Sorting Script **/
+            switch (sortOrder)
+            {
+                case "PerformanceName":
+                    Performances = Performances.OrderByDescending(f => f.PerformanceName);
+                    break;
+
+                default:
+                    Performances = Performances.OrderBy(f => f.PerformanceName);
+                    break;
+
+            }
+
+            /*** Search Script ****/
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Performances = Performances.Where(f => f.PerformanceName.Contains(searchString));
+
+            }
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<Performance>.CreateAsync(Performances.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
+
 
         // GET: Performances/Details/5
         public async Task<IActionResult> Details(int? id)

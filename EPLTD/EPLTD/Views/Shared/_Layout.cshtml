@@ -1,49 +1,117 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EPLTD</title>
+    <title>@ViewData["Title"] - EventsPlusLTD</title>
+    <link rel="stylesheet" type="text/css" href=".../wwwroot/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href=".../wwwroot/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EPLTD</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
+
+    <nav class="navbar bg-dark navbar-dark">
+        <!--Creates a navigation bar with the dark colour scheme properties-->
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <ul class="nav-item">
+                <a class="nav-item text-light" asp-controller="Home" asp-action="Index"><h7>Home</h7></a> <!--References the Home page-->
+            </ul>
+            <ul class="nav-item">
+                <a class="nav-item text-light" asp-area="Identity" asp-page="/Account/Login"><h7>Login</h7></a> <!--References the Login page-->
+            </ul>
+            <ul class="nav-item">
+                <a class="nav-item text-light" asp-area="Identity" asp-page="/Account/Register"><h7>Register</h7></a> <!--References the register page-->
+            </ul>
+            @if (User.IsInRole("admin"))
+            {
+                <ul class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Role" asp-action="Index"><h7>Roles</h7></a> <!--References the register page-->
+                </ul>
+                <ul class="nav-item">
+                    <a class="nav-link text-light" asp-area=""
+                       asp-controller="UserRoleManagement" asp-action="Index"><h7>Users Roles Management</h7></a>
+                </ul>
+            }
+
+
+
         </nav>
-    </header>
-    <div class="container">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <!--Creates a collapsible navbar that can open or close with links to other pages-->
+            <ul class="navbar-nav">
+                <li class="nav-item"> <a class="nav-link" href="#"> First level 1 </a> </li> <!--Simple navigation link-->
+                <li class="nav-item"> <a class="nav-link" href="#"> First level 2 </a></li>
+                <li class="nav-item dropdown">
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        @if (User.IsInRole("admin"))
+                        {
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Databases  </a> <!--Creates a toggleable class that dropsdown and provides more links, the main dropdown is named Databases-->
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../Events/Index"> Event </a></li> <!--Using the class dropdown item, creates a clickable item called Event that references the view Events-->
+                                <li><a class="dropdown-item" href="../Customers/Index"> Customer </a></li> <!--Using the class dropdown item, creates a clickable item called Customer that references the view Customers-->
+                                <li><a class="dropdown-item" href="../Locations/Index"> Location</a></li> <!--Using the class dropdown item, creates a clickable item called Location that references the view Locations-->
+                                <li><a class="dropdown-item" href="../Performances/Index"> Performance</a></li> <!--Using the class dropdown item, creates a clickable item called Performance that references the view Performances-->
+                                <li><a class="dropdown-item" href="../AssetsNeededs/Index"> Assets</a></li> <!--Using the class dropdown item, creates a clickable item called Assets that references the view Assets Needed-->
+                                <li><a class="dropdown-item" href="../Equipments/Index"> Equipment</a></li> <!--Using the class dropdown item, creates a clickable item called Equipment that references the view Equipment-->
+                                <li><a class="dropdown-item" href="../EquipmentTypes/Index"> Type Of Equipment</a></li> <!--Using the class dropdown item, creates a clickable item called Type Of Equipment that references the view Equipment Types-->
+                                <li><a class="dropdown-item" href="../Participants/Index"> Participants</a></li> <!--Using the class dropdown item, creates a clickable item called Participants that references the view Participants-->
+                                <li><a class="dropdown-item" href="../Performers/Index"> Performers</a></li> <!--Using the class dropdown item, creates a clickable item called Performers that references the view Performers-->
+                                <li><a class="dropdown-item" href="../ActTypes/Index"> Act Genre</a></li> <!--Using the class dropdown item, creates a clickable item called Act Genre that references the view Act Types-->
+                                <li><a class="dropdown-item" href="../OrganizersOccupieds/Index"> Organizers Busy</a></li> <!--Using the class dropdown item, creates a clickable item called Organizers Busy that references the view Organizers Occupied-->
+                                <li><a class="dropdown-item" href="../Organizers/Index"> Organizers</a></li> <!--Using the class dropdown item, creates a clickable item called Organizers that references the view Organizers-->
+                                <li><a class="dropdown-item" href="../OrganizerRoles/Index"> Organizer Roles</a></li> <!--Using the class dropdown item, creates a clickable item called Organizers Roles that references the view Organizers Roles-->
+                                <li><a class="dropdown-item" href="../OrganizerInfoes/Index"> Organizers Info</a></li> <!--Using the class dropdown item, creates a clickable item called Organizers Info that references the view Organizers Info-->
+                            </ul>
+                        }
+                    }
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@ViewBag.title</h2>
+
+            </div>
+        </div>
+    </div>
+
+
+
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - EPLTD - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - EventsPlusLTD - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

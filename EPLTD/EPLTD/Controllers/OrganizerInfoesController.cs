@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EPLTD.Data;
 using EPLTD.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EPLTD.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class OrganizerInfoesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,10 +22,69 @@ namespace EPLTD.Controllers
         }
 
         // GET: OrganizerInfoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index_Default()
         {
-            return View(await _context.OrganizerInfo.ToListAsync());
+            var applicationDbContext = _context.OrganizerInfo.Include(e => e.Organizer);
+            return View(await applicationDbContext.ToListAsync());
         }
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        {
+            ViewData["FirstNameSort"] = String.IsNullOrEmpty(sortOrder) ? "FirstName_Desc" : "";
+            ViewData["LastNameSort"] = sortOrder == "LastName_Asc" ? "LastName_Desc" : "LastName_Asc";
+            ViewData["ContactEmailSort"] = sortOrder == "ContactEmail_Asc" ? "ContactEmail_Desc" : "ContactEmail_Asc";
+            var organizerInfo = from f in _context.OrganizerInfo.Include(f => f.Organizer)
+                                select f;
+
+            /** Sorting Script **/
+            switch (sortOrder)
+            {
+                case "FirstName_Desc":
+                    organizerInfo = organizerInfo.OrderByDescending(f => f.FirstName);
+                    break;
+                case "LastName_Asc":
+                    organizerInfo = organizerInfo.OrderBy(f => f.LastName);
+                    break;
+                case "LastName_Desc":
+                    organizerInfo = organizerInfo.OrderByDescending(f => f.LastName);
+                    break;
+                case "ContactEmail_Asc":
+                    organizerInfo = organizerInfo.OrderBy(f => f.ContactEmail);
+                    break;
+                case "ContactEmail_Desc":
+                    organizerInfo = organizerInfo.OrderByDescending(f => f.ContactEmail);
+                    break;
+
+
+                default:
+                    organizerInfo = organizerInfo.OrderBy(f => f.FirstName);
+                    break;
+
+            }
+
+            /*** Search Script ****/
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                organizerInfo = organizerInfo.Where(f => f.FirstName.Contains(searchString)
+                    || f.LastName.Contains(searchString)
+                        || f.ContactEmail.Contains(searchString));
+
+            }
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<OrganizerInfo>.CreateAsync(organizerInfo.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
+
 
         // GET: OrganizerInfoes/Details/5
         public async Task<IActionResult> Details(int? id)

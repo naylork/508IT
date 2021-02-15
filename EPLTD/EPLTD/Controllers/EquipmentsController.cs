@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EPLTD.Data;
 using EPLTD.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EPLTD.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class EquipmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,10 +22,50 @@ namespace EPLTD.Controllers
         }
 
         // GET: Equipments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index_Default()
         {
             var applicationDbContext = _context.Equipment.Include(e => e.EquipmentType);
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        {
+            ViewData["EquipmentNameSort"] = String.IsNullOrEmpty(sortOrder) ? "EquipmentName_Desc" : "";
+            var Equipments = from f in _context.Equipment.Include(f => f.AssetsNeeded)
+                             select f;
+
+            /** Sorting Script **/
+            switch (sortOrder)
+            {
+                case "EquipmentName_Desc":
+                    Equipments = Equipments.OrderByDescending(f => f.Equipment_Name);
+                    break;
+
+                default:
+                    Equipments = Equipments.OrderBy(f => f.Equipment_Name);
+                    break;
+
+            }
+
+            /*** Search Script ****/
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Equipments = Equipments.Where(f => f.Equipment_Name.Contains(searchString));
+
+            }
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<Equipment>.CreateAsync(Equipments.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Equipments/Details/5

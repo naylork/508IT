@@ -1,53 +1,111 @@
-﻿@model IEnumerable<EPLTD.Models.Performance>
+﻿@model PaginatedList<EPLTD.Models.Performance>
 
 @{
-    ViewData["Title"] = "Index";
+
 }
 
-<h1>Index</h1>
+<br />
+<br />
+<br />
+<div style="text-align:center">
+    <h1>Performances</h1>
+    <br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+</div>
+
+<!-- Search Area -->
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search By any column: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+<!-- End of search Area -->
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PerformanceName)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["FullNameSort"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Performance Name</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeSlotStart)
+                TimeSlot Start
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeSlotEnd)
+                TimeSlot End
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event)
+                Event
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PerformanceName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeSlotStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeSlotEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Event.EventName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PerformanceID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PerformanceID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PerformanceID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerformanceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeSlotStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeSlotEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Event.EventName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PerformanceID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PerformanceID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PerformanceID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<br />
+<br />
+<br />
+<br />
+<div style="text-align:center">
+
+    <button type="button" class="btn btn-primary btn-group" onclick="location.href='../OrganizersOccupieds/Index'"><h4>Occupied Organizers</h4></button>
+    <button type="button" class="btn btn-primary btn-group" onclick="location.href='../Events/Index'"><h4>Event Information</h4></button>
+    <button type="button" class="btn btn-primary btn-group" onclick="location.href='../Participants/Index'"><h4>Participants</h4></button>
+    <button type="button" class="btn btn-primary btn-group" onclick="location.href='../AssetsNeededs/Index'"><h4>Assets Needed</h4></button>
+</div>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+     asp-route-sortOrder="@ViewData["CurrentSort"]"
+     asp-route-pageNumber="@(Model.PageIndex - 1)"
+     asp-route-currentFilter="@ViewData["CurrentFilter"]"
+     class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+     asp-route-sortOrder="@ViewData["CurrentSort"]"
+     asp-route-pageNumber="@(Model.PageIndex + 1)"
+     asp-route-currentFilter="@ViewData["CurrentFilter"]"
+     class="btn btn-default @nextDisabled">
+    Next
+</a>
+
+
+
+
+
+
+

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EPLTD.Data;
 using EPLTD.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EPLTD.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class LocationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,10 +22,50 @@ namespace EPLTD.Controllers
         }
 
         // GET: Locations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index_Default()
         {
             var applicationDbContext = _context.Location.Include(l => l.Event);
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        {
+            ViewData["VenueSort"] = String.IsNullOrEmpty(sortOrder) ? "Venue_Desc" : "";
+            var Locations = from f in _context.Location.Include(f => f.Event)
+                            select f;
+
+            /** Sorting Script **/
+            switch (sortOrder)
+            {
+                case "Venue_Desc":
+                    Locations = Locations.OrderByDescending(f => f.Venue);
+                    break;
+
+
+                default:
+                    Locations = Locations.OrderBy(f => f.Venue);
+                    break;
+            }
+
+            /*** Search Script ****/
+            ViewData["CurrentFilter"] = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Locations = Locations.Where(f => f.Venue.Contains(searchString));
+
+            }
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<Location>.CreateAsync(Locations.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Locations/Details/5

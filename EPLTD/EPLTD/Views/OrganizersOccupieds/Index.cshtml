@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<EPLTD.Models.OrganizersOccupied>
 
 @{
-    ViewData["Title"] = "Index";
 }
+<br />
+<br />
+<br />
+<div style="text-align:center">
+    <h1>Occupied Organizers</h1>
+    <br />
 
-<h1>Index</h1>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -28,26 +33,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeSlotStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeSlotEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Performance.PerformanceID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Organizer.OrganizerID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrganizersOccupiedID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrganizersOccupiedID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrganizersOccupiedID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeSlotStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeSlotEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Performance.PerformanceID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Organizer.OrganizerID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OrganizersOccupiedID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.OrganizersOccupiedID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OrganizersOccupiedID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<br />
+<br />
+<br />
+<br />
+<div style="text-align:center">
+
+    <button type="button" class="btn btn-primary btn-group" onclick="location.href='../Organizers/Index'"><h4>Organizers</h4></button>
+    <button type="button" class="btn btn-primary btn-group" onclick="location.href='../Performances/Index'"><h4>Performances</h4></button>
+</div>
