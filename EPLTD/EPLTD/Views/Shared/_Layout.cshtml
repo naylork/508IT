@@ -32,14 +32,24 @@
                     <a class="nav-link text-light" asp-area="" asp-controller="Role" asp-action="Index"><h7>Roles</h7></a> <!--References the register page-->
                 </ul>
                 <ul class="nav-item">
-                    <a class="nav-link text-light" asp-area=""
-                       asp-controller="UserRoleManagement" asp-action="Index"><h7>Users Roles Management</h7></a>
+                    <a class="nav-link text-light" asp-area="" asp-controller="UserRoleManagement" asp-action="Index"><h7>Users Roles Management</h7></a>
                 </ul>
+
             }
 
 
-
         </nav>
+
+        <div class="col" style="text-align:right">
+            <ul class="nav-item">
+                <div id="google_translate_element"></div>
+                <script type="text/javascript">
+                    function googleTranslateElementInit() {
+                        new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+                    }
+                </script>
+            </ul>
+        </div>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -48,8 +58,8 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <!--Creates a collapsible navbar that can open or close with links to other pages-->
             <ul class="navbar-nav">
-                <li class="nav-item"> <a class="nav-link" href="#"> First level 1 </a> </li> <!--Simple navigation link-->
-                <li class="nav-item"> <a class="nav-link" href="#"> First level 2 </a></li>
+                <li class="nav-item"> <a class="nav-link"  href="../Home/UpcomingEvents"> Upcoming Events </a> </li> <!--Simple navigation link-->
+                <li class="nav-item"> <a class="nav-link" href="../Home/Privacy"> Privacy </a></li>
                 <li class="nav-item dropdown">
                     @if (signInManager.IsSignedIn(User))
                     {
@@ -109,7 +119,9 @@
         </div>
     </footer>
 
-
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 

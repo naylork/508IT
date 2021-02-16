@@ -8,12 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using EPLTD.Data;
 using EPLTD.Models;
 using Microsoft.AspNetCore.Authorization;
+using EPLTD.ViewModels;
 
 namespace EPLTD.Controllers
 {
     [Authorize(Roles = "admin")]
     public class ParticipantsController : Controller
     {
+
         private readonly ApplicationDbContext _context;
 
         public ParticipantsController(ApplicationDbContext context)
@@ -27,6 +29,7 @@ namespace EPLTD.Controllers
             var applicationDbContext = _context.Participants.Include(p => p.Performance).Include(p => p.Performers);
             return View(await applicationDbContext.ToListAsync());
         }
+
 
         // GET: Participants/Details/5
         public async Task<IActionResult> Details(int? id)
